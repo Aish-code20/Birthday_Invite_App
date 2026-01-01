@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Invite</title>
+
+<style>
+*{
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  text-align: center;
+}
+
+body{
+  margin: 0;
+  height: 100vh;
+  background-color: #faf7ff;   /* soft warm violet-white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Main box */
+.box{
+  width: 460px;
+  padding: 42px;
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(109,40,217,0.12);
+}
+
+/* Heading */
+h1{
+  font-size: 38px;
+  margin-bottom: 32px;
+  color: #5b21b6;   /* deep elegant violet */
+  font-weight: 600;
+}
+
+/* Button group layout */
+.btn-group{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;   /* THIS fixes overlap */
+}
+
+/* Buttons */
+input[type="submit"]{
+  min-width: 110px;
+  font-size: 18px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  background-color: #c4b5fd;
+  color: #3b0764;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+input[type="submit"]:hover{
+  background-color: #a78bfa;
+  color: #ffffff;
+}
+
+/* Result box */
+#msg{
+  margin-top: 30px;
+  padding: 16px;
+  font-size: 20px;
+  border-radius: 12px;
+  background-color: #f3e8ff;
+  color: #4c1d95;
+  font-weight: 500;
+  min-height: 44px;
+}
+</style>
+</head>
+
+<body>
+
+  <div class="box">
+    <h1>Birthday Invite</h1>
+
+    <form onsubmit="operation(event)">
+      <input type="submit" value="Add">
+      <input type="submit" value="Show">
+      <input type="submit" value="Remove">
+    </form>
+
+    <div id="msg"></div>
+  </div>
+
+  <script>
+    let friends = ["Aishwarya", "Pranay"];
+
+    function operation(event){
+      event.preventDefault();
+
+      let action = document.activeElement.value;
+      let msg = document.getElementById("msg");
+
+      if(action === "Add"){
+        let name = prompt("Enter name to add:");
+        if(name && name.trim() !== ""){
+          friends.push(name.trim());
+          msg.innerHTML = "Added successfully ";
+        }
+      }
+
+      else if(action === "Remove"){
+        let name = prompt("Enter name to remove:");
+        if(name && name.trim() !== ""){
+          let index = friends.indexOf(name.trim());
+          if(index !== -1){
+            friends.splice(index, 1);
+            msg.innerHTML = "Removed successfully ";
+          } else {
+            alert(name + " not found");
+          }
+        }
+      }
+
+      else if(action === "Show"){
+        if(friends.length === 0){
+          msg.innerHTML = "No invites available";
+        } else {
+          msg.innerHTML = friends.join(", ");
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>
